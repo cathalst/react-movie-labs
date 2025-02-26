@@ -1,4 +1,6 @@
 
+import AddMovieReviewPage from './pages/addMovieReviewPage'
+
 import SiteHeader from './components/siteHeader'
 
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -38,6 +40,7 @@ const App = () => {
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={ <Navigate to="/" /> } />
+            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
