@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router";
 
 import HomePage from "./pages/homePage";
+import UpcomingPage from "./pages/upcoming";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import { QueryClientProvider, QueryClient,  } from '@tanstack/react-query';
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/movies/upcoming" element={<UpcomingPage />} />
             <Route path="*" element={ <Navigate to="/" /> } />
             <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
           </Routes>
