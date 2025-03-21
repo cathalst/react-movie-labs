@@ -1,49 +1,57 @@
+
+
 import React, { useState } from "react";
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
-  const [myReviews, setMyReviews] = useState( {} ) 
-
+  const [favorites, setFavorites] = useState([]);
+  const [mustWatch, setMustWatch] = useState([]); // added mustWatch state
+  const [myReviews, setMyReviews] = useState({});
 
   const addToFavorites = (movie) => {
-    let newFavorites = [];
-    if (!favorites.includes(movie.id)){
-      newFavorites = [...favorites, movie.id];
-    }
-    else{
-      newFavorites = [...favorites];
-    }
-    setFavorites(newFavorites)
+    let newFavorites = favorites.includes(movie.id)
+      ? [...favorites]
+      : [...favorites, movie.id];
+    setFavorites(newFavorites);
+  };
+
+  const addToPlaylist = (movie) => { 
+    let newMustWatch = mustWatch.includes(movie.id)
+      ? [...mustWatch]
+      : [...mustWatch, movie.id];
+    setMustWatch(newMustWatch);
+    console.log("Must Watch list updated:", newMustWatch);
   };
 
   const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
+    setMyReviews({ ...myReviews, [movie.id]: review });
   };
-  //console.log(myReviews);
 
-  
-  // We will use this function in the next step
   const removeFromFavorites = (movie) => {
-    setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
-    ) )
+    setFavorites(favorites.filter((mId) => mId !== movie.id));
+  };
+
+  const removeFromMustWatch = (movie) => { // added function to remove from Must Watch
+    setMustWatch(mustWatch.filter((mId) => mId !== movie.id));
   };
 
   return (
     <MoviesContext.Provider
       value={{
         favorites,
+        mustWatch, // provided mustWatch state
         addToFavorites,
         removeFromFavorites,
         addReview,
+        addToPlaylist, // renamed to match usage in AddToPlaylistIcon.jsx
+        // removeFromMustWatch, //  Included remove function
       }}
     >
       {props.children}
     </MoviesContext.Provider>
   );
-
 };
 
 export default MoviesContextProvider;
+

@@ -15,6 +15,8 @@ import img from '../../images/film-poster-placeholder.png'
 import Avatar from '@mui/material/Avatar';
 import React, { useContext  } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
+//import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+
 
 
 export default function MovieCard({ movie, action }) {
@@ -40,7 +42,9 @@ export default function MovieCard({ movie, action }) {
           movie.favorite ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
+              
             </Avatar>
+            
           ) : null
         }
         title={
@@ -73,6 +77,8 @@ export default function MovieCard({ movie, action }) {
             </Typography>
           </Grid>
         </Grid>
+
+     
       </CardContent>
       <CardActions disableSpacing>
       

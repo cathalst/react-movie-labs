@@ -103,3 +103,5 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
   );
 };
 export default MovieDetails ;
+
+//import PlaylistAddIcon from 'mui/icons-material/PlaylistAdd';
