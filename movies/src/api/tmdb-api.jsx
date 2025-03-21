@@ -56,21 +56,28 @@ export const getMovie = (args) => {
   
   export const getMovieImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
-    const { id } = idPart;
+    const id = idPart?.id;
+  
+    if (!id) {
+      throw new Error("Invalid movie ID for fetching images");
+    }
+  
     return fetch(
       `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    ).then( (response) => {
-      if (!response.ok) {
-        return response.json().then((error) => {
-          throw new Error(error.status_message || "Something went wrong");
-        });
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      throw error
-   });
+    )
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            throw new Error(error.status_message || "Something went wrong");
+          });
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        throw error;
+      });
   };
+  
 
 
   export const getMovieReviews = ({ queryKey }) => {
@@ -107,5 +114,76 @@ export const getMovie = (args) => {
     });
   };
   
+//new added //////////////////////////////////
+
+export const getPopularMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    
+  )
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+
+  export const getTopRatedMovies = () => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
   
+
+  export const getNowPlayingMovies = () => {
+    return fetch(
+     `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
