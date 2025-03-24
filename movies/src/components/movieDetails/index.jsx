@@ -11,6 +11,8 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 
+  import CreditsSection from "../creditsList";
+
 
 const root = {
     display: "flex",
@@ -98,10 +100,14 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
+      <CreditsSection movieId={movie.id} /> 
 
       </>
   );
 };
+
+
+
 export default MovieDetails ;
 
 //import PlaylistAddIcon from 'mui/icons-material/PlaylistAdd';
