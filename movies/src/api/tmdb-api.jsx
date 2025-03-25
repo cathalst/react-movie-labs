@@ -192,6 +192,35 @@ export const getPopularMovies = () => {
         throw error;
       });
   };
+
+
+  //rating
+
+  export const getFilteredMovies = (searchQuery, genreFilter, minRating = 0) => {
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&vote_average.gte=${minRating}&sort_by=popularity.desc&page=1`;
+  
+    if (genreFilter) {
+      url += `&with_genres=${genreFilter}`;
+    }
+  
+    if (searchQuery) {
+      // You must use the search endpoint instead if you're actually doing title search
+      url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1&query=${encodeURIComponent(searchQuery)}`;
+      if (minRating > 0) {
+        url += `&vote_average.gte=${minRating}`;
+      }
+    }
+  
+    return fetch(url)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch filtered movies");
+        return res.json();
+      });
+  };
+  
+  
+  
+  
   
   
 

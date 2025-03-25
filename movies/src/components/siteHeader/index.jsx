@@ -29,7 +29,7 @@ const SiteHeader = ({ history }) => {
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Option 4", path: "/" },
+    // { label: "Option 4", path: "/" },
     { label: "Popular", path: "/movies/popular" }, 
     { label: "Top Rated", path: "/movies/toprated" }, 
     { label: "Now Playing", path: "/movies/now_playing" }, 
@@ -45,11 +45,12 @@ const SiteHeader = ({ history }) => {
 
   return (
     <>
-      <AppBar position="fixed" color="secondary">
+      <AppBar position="fixed" color="primary" >
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client
-          </Typography>
+        <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: "bold" }}>
+          TMDB Client
+         </Typography>
+
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
@@ -92,13 +93,15 @@ const SiteHeader = ({ history }) => {
             ) : (
               <>
                 {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
+                       <Button
+                   key={opt.label}
+                   color="inherit"
+                    sx={{ mx: 1 }}
                     onClick={() => handleMenuSelect(opt.path)}
-                  >
+ >
                     {opt.label}
-                  </Button>
+                     </Button>
+ 
                 ))}
               </>
             )}

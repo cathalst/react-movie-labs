@@ -1,44 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { getUpcoming } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '../components/spinner';
-import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-import PlaylistAddIcon from '../components/cardIcons/addPlaylist';
+import PageTemplate from "../components/templateMovieListPage";
+import { useQuery } from "@tanstack/react-query";
+import Spinner from "../components/spinner";
+import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 
+const Upcoming = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [genreFilter, setGenreFilter] = useState("");
+  const [minRating, setMinRating] = useState(0);
 
-const Upcoming = (props) => {
-
-  const { data, error, isPending, isError  } = useQuery({
-    queryKey: ['Upcoming'],
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ["upcoming"],
     queryFn: getUpcoming,
-  })
-  
-  if (isPending) {
-    return <Spinner />
+  });
+
+  if (isPending) return <Spinner />;
+  if (isError) return <h1>{error.message}</h1>;
+
+  let movies = data.results;
+  if (searchQuery) {
+    movies = movies.filter((m) =>
+      m.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   }
-
-  if (isError) {
-    return <h1>{error.message}</h1>
-  }  
-  
-  const movies = data.results;
-
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-  const AddToPlaylistIcon = (movieId) => true 
+  if (genreFilter) {
+    movies = movies.filter((m) => m.genre_ids.includes(parseInt(genreFilter)));
+  }
+  if (minRating > 0) {
+    movies = movies.filter((m) => m.vote_average >= minRating);
+  }
 
   return (
     <PageTemplate
-      title="Discover Movies"
+      title="Upcoming Movies"
       movies={movies}
-      action={(movie) => {
-        
-        return <PlaylistAddIcon movie={movie}/>
-      }}
+      action={(movie) => <AddToFavoritesIcon movie={movie} />}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      genreFilter={genreFilter}
+      setGenreFilter={setGenreFilter}
+      minRating={minRating}
+      setMinRating={setMinRating}
     />
-);
-
+  );
 };
+
 export default Upcoming;

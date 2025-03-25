@@ -1,115 +1,63 @@
-import React, {useState, useEffect}  from "react";
-
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
-import { getGenres } from "../../api/tmdb-api";
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '../spinner';
 
 
-
-const formControl = 
-  {
-    margin: 1,
-    minWidth: "90%",
-    backgroundColor: "rgb(255, 255, 255)"
-  };
-
-export default function FilterMoviesCard(props) {
-
-  const { data, error, isPending, isError } = useQuery({
-    queryKey: ['genres'],
-    queryFn: getGenres,
-  });
-
-  if (isPending) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
-  const genres = data.genres;
-  if (genres[0].name !== "All"){
-    genres.unshift({ id: "0", name: "All" });
-  }
-
-  const handleChange = (e, type, value) => {
-    e.preventDefault();
-    props.onUserInput(type, value); 
-  };
-
-  const handleTextChange = (e, props) => {
-    handleChange(e, "name", e.target.value);
-  };
-
-  const handleGenreChange = (e) => {
-    handleChange(e, "genre", e.target.value);
-  };
-
-    
+import React from "react";
+import { Card, CardContent, Typography, FormControl, InputLabel, Select, MenuItem, Slider, Box, TextField } from "@mui/material";
+//simplified the imports
+const FilterCard = ({ genreFilter, setGenreFilter, minRating, setMinRating, searchQuery, setSearchQuery }) => {
   return (
-    <Card 
-      sx={{
-        backgroundColor: "rgb(204, 204, 0)"
-      }} 
-      variant="outlined">
+    <Card>
       <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          Filter the movies.
+        <Typography variant="h6" gutterBottom>
+          Filter Options
         </Typography>
-        <TextField
-      sx={{...formControl}}
-      id="filled-search"
-      label="Search field"
-      type="search"
-      variant="filled"
-      value={props.titleFilter}
-      onChange={handleTextChange}
-    />
 
-        <FormControl sx={{...formControl}}>
+        {/* search by title */}
+        <TextField
+          label="Search by title"
+          variant="outlined"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          fullWidth
+          sx={{ mb: 3 }} // applies a bottom margin of spacing unit 3 using mui's sx prop
+        />
+
+        {/* genre Filter */}
+        <FormControl fullWidth sx={{ mb: 4 }}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
-    labelId="genre-label"
-    id="genre-select"
-    defaultValue=""
-    value={props.genreFilter}
-    onChange={handleGenreChange}
-  >
-
-            {genres.map((genre) => {
-              return (
-                <MenuItem key={genre.id} value={genre.id}>
-                  {genre.name}
-                </MenuItem>
-              );
-            })}
+            labelId="genre-label"
+            value={genreFilter}
+            label="Genre"
+            onChange={(e) => setGenreFilter(e.target.value)}
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="28">Action</MenuItem>
+            <MenuItem value="35">Comedy</MenuItem>
+            <MenuItem value="18">Drama</MenuItem>
+            <MenuItem value="27">Horror</MenuItem>
+            <MenuItem value="10749">Romance</MenuItem>
           </Select>
         </FormControl>
-      </CardContent>
-      <CardMedia
-        sx={{ height: 300 }}
-        image={img}
-        title="Filter"
-      />
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          Filter the movies.
-          <br />
-        </Typography>
+
+        {/* rating Slider */}
+        <Box>
+          <Typography variant="subtitle1" gutterBottom>
+            Minimum Rating
+          </Typography>
+          <Slider
+            value={minRating}
+            onChange={(e, newValue) => setMinRating(newValue)}
+            min={0}
+            max={10}
+            step={0.5}
+            valueLabelDisplay="auto"
+          />   
+           {/* slider component to select a minimum rating between 0 and 10 in 0.5 steps */}
+        </Box> 
+      
       </CardContent>
     </Card>
   );
-}
+};
+
+export default FilterCard;

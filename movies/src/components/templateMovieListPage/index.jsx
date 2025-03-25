@@ -1,49 +1,44 @@
-import React, { useState } from "react";
-import Header from "../headerMovieList";
-import FilterCard from "../filterMoviesCard";
+import React from "react";
 import MovieList from "../movieList";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
+import FilterCard from "../filterMoviesCard";
+import { Typography } from "@mui/material";
 
-function MovieListPageTemplate({ movies, title, action }) {
-
-  const [nameFilter, setNameFilter] = useState("");
-  const [genreFilter, setGenreFilter] = useState("0");
-  const genreId = Number(genreFilter);
-
-  let displayedMovies = movies
-    .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
-    })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
-
-  const handleChange = (type, value) => {
-    if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
-  };
-
+const TemplateMovieListPage = ({
+  movies,
+  title,
+  action,
+  searchQuery,
+  setSearchQuery,
+  genreFilter,
+  setGenreFilter,
+  minRating,
+  setMinRating
+}) => {
   return (
-    <Grid container>
-      <Grid size={12}>
-        <Header title={title} />
-      </Grid>
-      <Grid container sx={{flex: "1 1 500px"}}>
-        <Grid 
-          key="find" 
-          size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} 
-          sx={{padding: "20px"}}
-        >
-          <FilterCard
-            onUserInput={handleChange}
-            titleFilter={nameFilter}
-            genreFilter={genreFilter}
-          />
-        </Grid>
-        <MovieList action={action} movies={displayedMovies}></MovieList>
+    <Grid container spacing={5} sx={{ padding: "20px" }}>
 
+      {/* filter sidebar */}
+      <Grid item xs={12} md={3}>
+        <FilterCard
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          genreFilter={genreFilter}
+          setGenreFilter={setGenreFilter}
+          minRating={minRating}
+          setMinRating={setMinRating}
+        />
+      </Grid>
+
+      {/* Movie List Area */}
+      <Grid item xs={12} md={9}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          {title}
+        </Typography>
+        <MovieList action={action} movies={movies} />
       </Grid>
     </Grid>
   );
-}
-export default MovieListPageTemplate;
+};
+
+export default TemplateMovieListPage;
