@@ -48,11 +48,11 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="primary" >
         <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: "bold" }}>
-          TMDB Client
+          The Movie DB 
          </Typography>
 
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
+            Find your favourite Movies!
           </Typography>
             {isMobile ? (
               <>

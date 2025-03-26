@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { Card, CardContent, Typography, FormControl, InputLabel, Select, MenuItem, Slider, Box, TextField } from "@mui/material";
 //simplified the imports

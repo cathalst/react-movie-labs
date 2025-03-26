@@ -11,7 +11,8 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 
-  import CreditsSection from "../creditsList";
+import CreditsSection from "../creditsList";
+  
 
 
 const root = {
@@ -105,6 +106,7 @@ const MovieDetails = ({ movie }) => {
       </>
   );
 };
+
 
 
 
