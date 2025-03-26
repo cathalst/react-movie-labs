@@ -51,7 +51,7 @@ const HomePage = () => {
         setMinRating={setMinRating}
       />
 
-      {/* Pagination Controls */}
+      {/* adding pagination with styling + max total pages */}
       <Stack spacing={2} sx={{ alignItems: "center", mt: 4 }}>
   <Pagination
     count={data.total_pages > 250 ? 250 : data.total_pages} // TMDB limits to 500 pages

@@ -13,9 +13,10 @@ const Upcoming = () => {
   const [minRating, setMinRating] = useState(0);
   const [page, setPage] = useState(1);
 
+  // pagination being added 
   const { data, error, isPending, isError } = useQuery({
     queryKey: ["upcoming", page],
-    queryFn: () => getUpcoming(page),
+    queryFn: () => getUpcoming(page),  
   });
 
   if (isPending) return <Spinner />;

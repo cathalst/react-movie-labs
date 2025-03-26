@@ -90,7 +90,7 @@ const CreditsList = ({ movieId }) => {
                 />
                 <CardContent>
                   <Typography variant="subtitle1" fontWeight="bold">
-                    {person.name}
+                    {person.name} 
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {person.job}

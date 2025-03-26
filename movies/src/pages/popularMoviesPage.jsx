@@ -47,7 +47,7 @@ const PopularMoviesPage = () => {
         minRating={minRating}
         setMinRating={setMinRating}
       />
-
+{/* adding pagination with styling + max total pages */}
       <Stack spacing={2} sx={{ alignItems: "center", mt: 4 }}>
         <Pagination
           count={data.total_pages > 500 ? 500 : data.total_pages}
