@@ -99,6 +99,8 @@ const MovieDetails = ({ movie }) => {
         Reviews
       </Fab>
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+      
+    {/* reviews and credits both imported in   */}
         <MovieReviews movie={movie} />
       </Drawer>
       <CreditsSection movieId={movie.id} /> 
