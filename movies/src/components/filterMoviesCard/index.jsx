@@ -35,6 +35,7 @@ const FilterCard = ({ genreFilter, setGenreFilter, minRating, setMinRating, sear
             <MenuItem value="18">Drama</MenuItem>
             <MenuItem value="27">Horror</MenuItem>
             <MenuItem value="10749">Romance</MenuItem>
+            {/* renders dropdown, corresponding tmdb genreids */}
           </Select>
         </FormControl>
 
