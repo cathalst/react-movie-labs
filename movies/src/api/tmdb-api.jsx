@@ -118,7 +118,7 @@ export const getMovie = (args) => {
   };
   
   
-//new added //////////////////////////////////
+//new added static endpoints //////////////////////////////////
 
 //using pagination, default to page 1
 export const getPopularMovies = (page = 1) => {

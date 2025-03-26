@@ -12,6 +12,7 @@ const Upcoming = () => {
   const [genreFilter, setGenreFilter] = useState("");
   const [minRating, setMinRating] = useState(0);
   const [page, setPage] = useState(1);
+  //track the current page number start at 1
 
   // pagination being added 
   const { data, error, isPending, isError } = useQuery({
@@ -34,7 +35,7 @@ const Upcoming = () => {
   if (minRating > 0) {
     movies = movies.filter((m) => m.vote_average >= minRating);
   }
-
+//filter the movie list to greater than or equal to selected rating
   return (
     <>      
     {/* importing page template */}

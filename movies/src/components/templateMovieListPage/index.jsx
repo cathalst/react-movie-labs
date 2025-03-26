@@ -29,7 +29,7 @@ const TemplateMovieListPage = ({
           setMinRating={setMinRating}
         />
       </Grid>
-
+{/* passing props to the filtercard component */}
       {/* Movie List Area */}
       <Grid item xs={12} md={9}>
         <Typography variant="h4" component="h2" gutterBottom>
