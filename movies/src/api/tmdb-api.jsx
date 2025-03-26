@@ -120,6 +120,7 @@ export const getMovie = (args) => {
   
 //new added //////////////////////////////////
 
+//using pagination, default to page 1
 export const getPopularMovies = (page = 1) => {
   return fetch(
     
@@ -138,7 +139,7 @@ export const getPopularMovies = (page = 1) => {
     });
 };
 
-
+//using pagination, default to page 1
 export const getTopRatedMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
@@ -157,7 +158,7 @@ export const getTopRatedMovies = (page = 1) => {
 };
 
   
-
+//using pagination, default to page 1
 export const getNowPlayingMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
